@@ -81,18 +81,24 @@ public class Quaternion {
         return qu;
     }
 
+
     @Override
     public boolean equals(Object o) {
-        if(o.getClass() != this.getClass()) return false;
-        if(o == null) return false;
-        Quaternion quaternion = (Quaternion)o;
-        return a == quaternion.getA() && a == quaternion.getB()
-                && a == quaternion.getC() && a == quaternion.getD();
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Quaternion that = (Quaternion) o;
+
+        if (Double.compare(that.a, a) != 0) return false;
+        if (Double.compare(that.b, b) != 0) return false;
+        if (Double.compare(that.c, c) != 0) return false;
+        return Double.compare(that.d, d) == 0;
     }
 
     @Override
     public int hashCode() {
         int result;
+
         long temp;
         temp = Double.doubleToLongBits(a);
         result = (int) (temp ^ (temp >>> 32));

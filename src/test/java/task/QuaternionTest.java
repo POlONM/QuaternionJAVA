@@ -52,8 +52,8 @@ public class QuaternionTest {
 
     @Test
     public void getMult() throws Exception {
-        assertEquals(new Quaternion(1, 1, 2, 7),
-                Quaternion.mult(new Quaternion(2, -3, 1, 3), new Quaternion(1, 4, 6, -3)));
+        assertEquals(new Quaternion(-28, 4, 6, 8),
+                Quaternion.mult(new Quaternion(1, 2, 3, 4), new Quaternion(1, 2, 3, 4)));
     }
 
     @Test

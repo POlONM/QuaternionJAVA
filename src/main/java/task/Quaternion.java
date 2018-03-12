@@ -63,7 +63,10 @@ public class Quaternion {
     }
 
     public static Quaternion mult(Quaternion a, Quaternion b){
-        return new Quaternion(a.a * b.a + a.b * b.b + a.c * b.c - a.d * b.d);
+        return new Quaternion(a.a * b.a - a.b * b.b - a.c * b.c - a.d * b.d,
+                a.a * b.b + a.b * b.a + a.c * b.d - a.d * b.c,
+                a.a * b.c - a.b * b.d + a.c * b.a + a.d * b.b,
+                a.a * b.d + a.b * b.c - a.c * b.b + a.d * b.a);
     }
 
     public String getParts() {
@@ -119,6 +122,12 @@ public class Quaternion {
             return (a+" + "+b+" * i - "+c*(-1)+" * j + "+d+" * k");
         else if (d < 0)
             return (a+" + "+b+" * i + "+c+" * j - "+d*(-1)+" * k");
+        else if (b < 0 && c < 0)
+            return (a+" - "+b*(-1)+" * i - "+c*(-1)+" * j + "+d+" * k");
+        else if (b < 0 && d < 0)
+            return (a+" - "+b*(-1)+" * i + "+c+" * j - "+d*(-1)+" * k");
+        else if (c < 0 && d < 0)
+            return (a+" + "+b+" * i - "+c*(-1)+" * j - "+d*(-1)+" * k");
         else if (b < 0 && c < 0 && d < 0)
             return (a+" - "+b*(-1)+" * i - "+c*(-1)+" * j - "+d*(-1)+" * k");
         else

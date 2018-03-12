@@ -22,35 +22,44 @@ public class Quaternion {
         this.d = d;
     }
 
-    public Quaternion sopr(){
+    public boolean isZero() {
+        return (a == 0 && b == 0 && c == 0 && d == 0);
+    }
+
+    public Quaternion sopr() {
         return new Quaternion(a, -b, -c, -d);
     }
 
-    public double abs(){
+    public double abs() {
         return Math.sqrt(a * a + b * b + c * c + d * d);
     }
 
-    public Quaternion norm(){
+    public Quaternion norm() {
         return new Quaternion(a * a, b * b, c * c, d * d);
     }
 
-    public static Quaternion sum(Quaternion a, Quaternion b){
+    public static Quaternion sum(Quaternion a, Quaternion b) {
         return new Quaternion(a.a + b.a, a.b + b.b, a.c + b.c, a.d + b.d);
     }
 
-    public static Quaternion antiSum(Quaternion a, Quaternion b){
-        return  new Quaternion(a.a - b.a, a.b - b.b, a.c - b.c, a.d - b.d);
+    public static Quaternion antiSum(Quaternion a, Quaternion b) {
+        return new Quaternion(a.a - b.a, a.b - b.b, a.c - b.c, a.d - b.d);
     }
 
-    public static Quaternion multNum(Quaternion a, double num){
+    public static Quaternion multNum(Quaternion a, double num) {
         return new Quaternion(a.a * num, a.b * num, a.c * num, a.d * num);
     }
 
-    public static Quaternion mult(Quaternion a, Quaternion b){
+    public static Quaternion mult(Quaternion a, Quaternion b) {
         return new Quaternion(a.a * b.a - a.b * b.b - a.c * b.c - a.d * b.d,
                 a.a * b.b + a.b * b.a + a.c * b.d - a.d * b.c,
                 a.a * b.c - a.b * b.d + a.c * b.a + a.d * b.b,
                 a.a * b.d + a.b * b.c - a.c * b.b + a.d * b.a);
+    }
+
+    public static Quaternion divideNum(Quaternion a, double num) {
+        if (num == 0) throw new ArithmeticException("Division by zero");
+        return new Quaternion(a.a / num, a.b / num, a.c / num, a.d / num);
     }
 
     public String getParts() {
@@ -58,7 +67,7 @@ public class Quaternion {
     }
 
 
-    public static Quaternion getQuaternion(Vector vector, double angle){
+    public static Quaternion getQuaternion(Vector vector, double angle) {
         Vector unitVector = vector.normalize();
         Quaternion qu = new Quaternion();
         qu.a = Math.cos(angle / 2);
@@ -99,22 +108,22 @@ public class Quaternion {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         if (b < 0)
-            return (a+" - "+b*(-1)+" * i + "+c+" * j + "+d+" * k");
+            return (a + " - " + b * (-1) + " * i + " + c + " * j + " + d + " * k");
         else if (c < 0)
-            return (a+" + "+b+" * i - "+c*(-1)+" * j + "+d+" * k");
+            return (a + " + " + b + " * i - " + c * (-1) + " * j + " + d + " * k");
         else if (d < 0)
-            return (a+" + "+b+" * i + "+c+" * j - "+d*(-1)+" * k");
+            return (a + " + " + b + " * i + " + c + " * j - " + d * (-1) + " * k");
         else if (b < 0 && c < 0)
-            return (a+" - "+b*(-1)+" * i - "+c*(-1)+" * j + "+d+" * k");
+            return (a + " - " + b * (-1) + " * i - " + c * (-1) + " * j + " + d + " * k");
         else if (b < 0 && d < 0)
-            return (a+" - "+b*(-1)+" * i + "+c+" * j - "+d*(-1)+" * k");
+            return (a + " - " + b * (-1) + " * i + " + c + " * j - " + d * (-1) + " * k");
         else if (c < 0 && d < 0)
-            return (a+" + "+b+" * i - "+c*(-1)+" * j - "+d*(-1)+" * k");
+            return (a + " + " + b + " * i - " + c * (-1) + " * j - " + d * (-1) + " * k");
         else if (b < 0 && c < 0 && d < 0)
-            return (a+" - "+b*(-1)+" * i - "+c*(-1)+" * j - "+d*(-1)+" * k");
+            return (a + " - " + b * (-1) + " * i - " + c * (-1) + " * j - " + d * (-1) + " * k");
         else
-            return (a+" + "+b+" * i + "+c+" * j + "+d+" * k");
+            return (a + " + " + b + " * i + " + c + " * j + " + d + " * k");
     }
 }

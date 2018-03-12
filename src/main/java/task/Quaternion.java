@@ -22,9 +22,6 @@ public class Quaternion {
         this.d = d;
     }
 
-    public boolean isZero() {
-        return (a == 0 && b == 0 && c == 0 && d == 0);
-    }
 
     public Quaternion sopr() {
         return new Quaternion(a, -b, -c, -d);
@@ -63,7 +60,8 @@ public class Quaternion {
     }
 
     public String getParts() {
-        return "u = " + a + ", " + "v = " + b + " * i + " + c + " * j + " + d + " * k";
+        return new String("u = " + a + ", " + "v = " + ((b < 0)? "-" : "") + Math.abs(b) + " * i " +
+                ((c < 0) ? "- " : "+ ") + Math.abs(c) + " * j " + ((d < 0) ? "- " : "+ ") + Math.abs(d) + " * k");
     }
 
 
@@ -109,21 +107,10 @@ public class Quaternion {
 
     @Override
     public String toString() {
-        if (b < 0)
-            return (a + " - " + b * (-1) + " * i + " + c + " * j + " + d + " * k");
-        else if (c < 0)
-            return (a + " + " + b + " * i - " + c * (-1) + " * j + " + d + " * k");
-        else if (d < 0)
-            return (a + " + " + b + " * i + " + c + " * j - " + d * (-1) + " * k");
-        else if (b < 0 && c < 0)
-            return (a + " - " + b * (-1) + " * i - " + c * (-1) + " * j + " + d + " * k");
-        else if (b < 0 && d < 0)
-            return (a + " - " + b * (-1) + " * i + " + c + " * j - " + d * (-1) + " * k");
-        else if (c < 0 && d < 0)
-            return (a + " + " + b + " * i - " + c * (-1) + " * j - " + d * (-1) + " * k");
-        else if (b < 0 && c < 0 && d < 0)
-            return (a + " - " + b * (-1) + " * i - " + c * (-1) + " * j - " + d * (-1) + " * k");
-        else
-            return (a + " + " + b + " * i + " + c + " * j + " + d + " * k");
+        return (a +
+                ((b < 0)? " - " : " + ") + Math.abs(b) + " * i" +
+                ((c < 0)? " - " : " + ") + Math.abs(c) + " * j" +
+                ((d < 0)? " - " : " + ") + Math.abs(d) + " * k");
     }
 }
+

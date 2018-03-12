@@ -22,22 +22,6 @@ public class Quaternion {
         this.d = d;
     }
 
-    public double getA() {
-        return a;
-    }
-
-    public double getB() {
-        return b;
-    }
-
-    public double getC() {
-        return c;
-    }
-
-    public double getD() {
-        return d;
-    }
-
     public Quaternion sopr(){
         return new Quaternion(a, -b, -c, -d);
     }

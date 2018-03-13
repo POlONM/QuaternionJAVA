@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 
 public class QuaternionTest {
 
+
     Quaternion quaternion;
 
     @Test
@@ -43,6 +44,19 @@ public class QuaternionTest {
         assertEquals(new Quaternion(5.76, 44.89, 16, 84.63999999999999), quaternion.norm());
         quaternion = new Quaternion(26.45, -63.196, -19.3, -56.56);
         assertEquals(new Quaternion(699.6025, 3993.734416, 372.49, 3199.0336), quaternion.norm());
+    }
+
+    @Test
+    public void inverse() throws Exception {
+        quaternion = new Quaternion(3, 3, 3, 3);
+        assertEquals(new Quaternion(0.08333333333333333, -0.08333333333333333,
+                -0.08333333333333333, -0.08333333333333333), quaternion.inverse());
+        quaternion = new Quaternion(2.8, -1.2, 4.5, 9.3);
+        assertEquals(new Quaternion(0.024133770039648332, 0.010343044302706429,
+                -0.03878641613514911, -0.08015859334597483), quaternion.inverse());
+        quaternion = new Quaternion(39.3454, 21.59, -32.54, 43.2784);
+        assertEquals(new Quaternion(0.007954897260263416, -0.0043650905022972735,
+                0.006578973827918169, -0.00875007562735629), quaternion.inverse());
     }
 
     @Test
@@ -98,6 +112,21 @@ public class QuaternionTest {
                 Quaternion.divideNum(new Quaternion(200, -148, 392, 196), 4));
         try {
             Quaternion.divideNum(new Quaternion(30, 19, 2, 7), 0);
+            assertTrue(false);
+        } catch (ArithmeticException e) {
+            assertTrue(true);
+        }
+    }
+
+    @Test
+    public void divide() throws Exception {
+        assertEquals(new Quaternion(0.625, 0.125, 0, 0.25), Quaternion.divide(new Quaternion(1, 2, 3, 4),
+                new Quaternion(4, 4, 4, 4)));
+        assertEquals(new Quaternion(0.19321971621152229, -0.1102014468514016, 0.22508819448766892, 0.04558907091097829),
+                Quaternion.divide(new Quaternion(12.3, 25.6, 9.4, 11.1),
+                        new Quaternion(21.3, 41.4, -32.7, 82)));
+        try {
+            Quaternion.divide(new Quaternion(23.65, 104, 36.3, 9.054), new Quaternion());
             assertTrue(false);
         } catch (ArithmeticException e) {
             assertTrue(true);

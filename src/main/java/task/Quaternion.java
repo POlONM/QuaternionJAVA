@@ -35,6 +35,14 @@ public class Quaternion {
         return new Quaternion(a * a, b * b, c * c, d * d);
     }
 
+    public boolean quIsZero() {
+        return a == 0 && b == 0 && c == 0 && d == 0;
+    }
+
+    public Quaternion inverse() {
+        return Quaternion.divideNum(this.sopr(), this.abs() * this.abs());
+    }
+
     public static Quaternion sum(Quaternion a, Quaternion b) {
         return new Quaternion(a.a + b.a, a.b + b.b, a.c + b.c, a.d + b.d);
     }
@@ -59,8 +67,13 @@ public class Quaternion {
         return new Quaternion(a.a / num, a.b / num, a.c / num, a.d / num);
     }
 
+    public static Quaternion divide(Quaternion a, Quaternion b) {
+        if (b.quIsZero()) throw new ArithmeticException("Division by zero");
+        return Quaternion.mult(a, b.inverse());
+    }
+
     public String getParts() {
-        return new String("u = " + a + ", " + "v = " + ((b < 0)? "-" : "") + Math.abs(b) + " * i " +
+        return ("u = " + a + ", " + "v = " + ((b < 0) ? "-" : "") + Math.abs(b) + " * i " +
                 ((c < 0) ? "- " : "+ ") + Math.abs(c) + " * j " + ((d < 0) ? "- " : "+ ") + Math.abs(d) + " * k");
     }
 
@@ -108,9 +121,9 @@ public class Quaternion {
     @Override
     public String toString() {
         return (a +
-                ((b < 0)? " - " : " + ") + Math.abs(b) + " * i" +
-                ((c < 0)? " - " : " + ") + Math.abs(c) + " * j" +
-                ((d < 0)? " - " : " + ") + Math.abs(d) + " * k");
+                ((b < 0) ? " - " : " + ") + Math.abs(b) + " * i" +
+                ((c < 0) ? " - " : " + ") + Math.abs(c) + " * j" +
+                ((d < 0) ? " - " : " + ") + Math.abs(d) + " * k");
     }
 }
 

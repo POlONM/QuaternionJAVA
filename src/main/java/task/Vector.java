@@ -32,6 +32,6 @@ public class Vector {
     @Override
     public String toString() {
         return "(" + ((x < 0) ? "- " : "") + Math.abs(x) + ", " + ((y < 0) ? "- " : "") +
-                Math.abs(y) + "," + ((z < 0) ? "- " : "") + Math.abs(z) + ")";
+                Math.abs(y) + ", " + ((z < 0) ? "- " : "") + Math.abs(z) + ")";
     }
 }

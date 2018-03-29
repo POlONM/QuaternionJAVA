@@ -24,6 +24,7 @@
 hs_err_pid*
 
 .idea/workspace.xml
+.idea/libraries
 src/main/resources/
-target/generated-sources/
-target/generated-test-sources/
+target
+QuaternionJava.iml

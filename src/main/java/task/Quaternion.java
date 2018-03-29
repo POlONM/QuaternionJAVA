@@ -23,7 +23,7 @@ public class Quaternion {
     }
 
 
-    public Quaternion sopr() {
+    public Quaternion conjugation() {
         return new Quaternion(a, -b, -c, -d);
     }
 
@@ -40,14 +40,14 @@ public class Quaternion {
     }
 
     public Quaternion inverse() {
-        return Quaternion.divideNum(this.sopr(), this.abs() * this.abs());
+        return Quaternion.divideNum(this.conjugation(), this.abs() * this.abs());
     }
 
     public static Quaternion sum(Quaternion a, Quaternion b) {
         return new Quaternion(a.a + b.a, a.b + b.b, a.c + b.c, a.d + b.d);
     }
 
-    public static Quaternion antiSum(Quaternion a, Quaternion b) {
+    public static Quaternion sub(Quaternion a, Quaternion b) {
         return new Quaternion(a.a - b.a, a.b - b.b, a.c - b.c, a.d - b.d);
     }
 
@@ -55,7 +55,7 @@ public class Quaternion {
         return new Quaternion(a.a * num, a.b * num, a.c * num, a.d * num);
     }
 
-    public static Quaternion mult(Quaternion a, Quaternion b) {
+    static Quaternion mult(Quaternion a, Quaternion b) {
         return new Quaternion(a.a * b.a - a.b * b.b - a.c * b.c - a.d * b.d,
                 a.a * b.b + a.b * b.a + a.c * b.d - a.d * b.c,
                 a.a * b.c - a.b * b.d + a.c * b.a + a.d * b.b,
@@ -72,11 +72,14 @@ public class Quaternion {
         return Quaternion.mult(a, b.inverse());
     }
 
-    public String getParts() {
-        return ("u = " + a + ", " + "v = " + ((b < 0) ? "-" : "") + Math.abs(b) + " * i " +
-                ((c < 0) ? "- " : "+ ") + Math.abs(c) + " * j " + ((d < 0) ? "- " : "+ ") + Math.abs(d) + " * k");
+    public String scalarPart() {
+        return ("u = " + a);
     }
 
+    public String vectorPart() {
+        return ("v = " + ((b < 0) ? "-" : "") + Math.abs(b) + " * i " +
+                ((c < 0) ? "- " : "+ ") + Math.abs(c) + " * j " + ((d < 0) ? "- " : "+ ") + Math.abs(d) + " * k");
+    }
 
     public static Quaternion getQuaternion(Vector vector, double angle) {
         Vector unitVector = vector.normalize();

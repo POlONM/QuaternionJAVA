@@ -17,13 +17,13 @@ public class QuaternionTest {
     }
 
     @Test
-    public void getSopr() throws Exception {
+    public void getConjugation() throws Exception {
         quaternion = new Quaternion(0.4, 0.1, 0.7, 1.5);
-        assertEquals(new Quaternion(0.4, -0.1, -0.7, -1.5), quaternion.sopr());
+        assertEquals(new Quaternion(0.4, -0.1, -0.7, -1.5), quaternion.conjugation());
         quaternion = new Quaternion(1, 2, 3, 4);
-        assertEquals(new Quaternion(1, -2, -3, -4), quaternion.sopr());
+        assertEquals(new Quaternion(1, -2, -3, -4), quaternion.conjugation());
         quaternion = new Quaternion(32.3, -56.789, 147.23, 37.5673);
-        assertEquals(new Quaternion(32.3, 56.789, -147.23, -37.5673), quaternion.sopr());
+        assertEquals(new Quaternion(32.3, 56.789, -147.23, -37.5673), quaternion.conjugation());
     }
 
     @Test
@@ -71,14 +71,14 @@ public class QuaternionTest {
     }
 
     @Test
-    public void getAntiSum() throws Exception {
+    public void getSub() throws Exception {
         assertEquals(new Quaternion(1, -11, 2, 7),
-                Quaternion.antiSum(new Quaternion(2, -5, 6, 4), new Quaternion(1, 6, 4, -3)));
+                Quaternion.sub(new Quaternion(2, -5, 6, 4), new Quaternion(1, 6, 4, -3)));
         assertEquals(new Quaternion(35.96, -120.19999999999999, 6.000000000000001, -1.3000000000000043),
-                Quaternion.antiSum(new Quaternion(23.56, -56.8, 10.3, 33.3),
+                Quaternion.sub(new Quaternion(23.56, -56.8, 10.3, 33.3),
                         new Quaternion(-12.4, 63.4, 4.3, 34.6)));
         assertEquals(new Quaternion(181.8475, 124.9618, 42.3334, -45.96),
-                Quaternion.antiSum(new Quaternion(25.4675, 189.34, 65.7894, -49.52),
+                Quaternion.sub(new Quaternion(25.4675, 189.34, 65.7894, -49.52),
                         new Quaternion(-156.38, 64.3782, 23.456, -3.56)));
     }
 
@@ -134,13 +134,23 @@ public class QuaternionTest {
     }
 
     @Test
-    public void getParts() throws Exception {
+    public void getScalarPart() throws Exception {
         quaternion = new Quaternion(1, 2, 3, 4);
-        assertEquals("u = 1.0, v = 2.0 * i + 3.0 * j + 4.0 * k", quaternion.getParts());
+        assertEquals("u = 1.0", quaternion.scalarPart());
         quaternion = new Quaternion(1.5, -2.378, 3.56, 4.894);
-        assertEquals("u = 1.5, v = -2.378 * i + 3.56 * j + 4.894 * k", quaternion.getParts());
+        assertEquals("u = 1.5", quaternion.scalarPart());
         quaternion = new Quaternion(23.563, -286.3571, 356.0586, -4.58493);
-        assertEquals("u = 23.563, v = -286.3571 * i + 356.0586 * j - 4.58493 * k", quaternion.getParts());
+        assertEquals("u = 23.563", quaternion.scalarPart());
+    }
+
+    @Test
+    public void getVectorParts() throws Exception {
+        quaternion = new Quaternion(1, 2, 3, 4);
+        assertEquals("v = 2.0 * i + 3.0 * j + 4.0 * k", quaternion.vectorPart());
+        quaternion = new Quaternion(1.5, -2.378, 3.56, 4.894);
+        assertEquals("v = -2.378 * i + 3.56 * j + 4.894 * k", quaternion.vectorPart());
+        quaternion = new Quaternion(23.563, -286.3571, 356.0586, -4.58493);
+        assertEquals("v = -286.3571 * i + 356.0586 * j - 4.58493 * k", quaternion.vectorPart());
     }
 
     Vector vector;

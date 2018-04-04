@@ -30,43 +30,69 @@ public class Quaternion {
         this.d = d;
     }
 
-
+    /**
+     * @return conjugate quaternion
+     */
     public Quaternion conjugation() {
         return new Quaternion(a, -b, -c, -d);
     }
 
     /**
-     * 
-     * @return
+     * @return quaternion module
      */
     public double abs() {
         return Math.sqrt(a * a + b * b + c * c + d * d);
     }
 
+    /**
+     * @return normalized quaternion
+     */
     public Quaternion norm() {
         return new Quaternion(a * a, b * b, c * c, d * d);
     }
 
+    /**
+     * @return true or false, if the quaternion 0
+     */
     private boolean isZero() {
         return a == 0 && b == 0 && c == 0 && d == 0;
     }
 
+    /**
+     * @return
+     */
     private Quaternion inverse() {
         return divideNum(conjugation(), Math.pow(abs(), 2d));
     }
 
+    /**
+     * @param other quaternion to addition
+     * @return returns quaternion from two combined quaternion
+     */
     public Quaternion sum(Quaternion other) {
         return new Quaternion(a + other.a, b + other.b, c + other.c, d + other.d);
     }
 
+    /**
+     * @param other quaternion to subtraction
+     * @return a quaternion of two subtracted quaternions
+     */
     public Quaternion sub(Quaternion other) {
         return new Quaternion(a - other.a, b - other.b, c - other.c, d - other.d);
     }
 
+    /**
+     * @param num double to multiplication
+     * @return quaternion multiplied by a number
+     */
     public Quaternion multNum(double num) {
         return new Quaternion(a * num, b * num, c * num, d * num);
     }
 
+    /**
+     * @param other quaternion to multiplication
+     * @return quaternion of two multiplied quaternions
+     */
     public Quaternion mult(Quaternion other) {
         return new Quaternion(a * other.a - b * other.b - c * other.c - d * other.d,
                 a * other.b + b * other.a + c * other.d - d * other.c,
@@ -74,24 +100,45 @@ public class Quaternion {
                 a * other.d + b * other.c - c * other.b + d * other.a);
     }
 
+    /**
+     * @param first quaternion to divide
+     * @param num double
+     * @return quaternion divided by a number
+     */
     public static Quaternion divideNum(Quaternion first, double num) {
         if (num == 0) throw new ArithmeticException("Division by zero");
         return new Quaternion(first.a / num, first.b / num, first.c / num, first.d / num);
     }
 
+    /**
+     * @param first quaternion to divide
+     * @param second quaternion to divide
+     * @return the quaternion obtained by dividing two quaternions
+     */
     public static Quaternion divide(Quaternion first, Quaternion second) {
         if (second.isZero()) throw new ArithmeticException("Division by zero");
         return first.mult(second.inverse());
     }
 
+    /**
+     * @return scalar part of quaternion
+     */
     public Quaternion scalarPart() {
         return new Quaternion(a);
     }
 
+    /**
+     * @return vector part of quaternion
+     */
     public Quaternion vectorPart() {
         return new Quaternion(b, c, d);
     }
 
+    /**
+     * @param vector vector
+     * @param angle double
+     * @return the quaternion obtained from the given axes and the rotation angle
+     */
     public static Quaternion getQuaternion(Vector vector, double angle) {
         Vector unitVector = vector.normalize();
         double a = Math.cos(angle / 2);

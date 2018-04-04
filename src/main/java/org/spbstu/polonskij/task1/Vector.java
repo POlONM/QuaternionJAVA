@@ -22,17 +22,15 @@ public class Vector {
     }
 
     /**
-     * @return
+     * @return length of a vector
      */
-
     public double length() {
         return Math.sqrt(x * x + y * y + z * z);
     }
 
     /**
-     * @return
+     * @return a vector in the same direction with only one length
      */
-
     public Vector normalize() {
         double length = length();
         return new Vector(x / length, y / length, z / length);

@@ -94,11 +94,11 @@ public class QuaternionTest {
     @Test
     public void getDivideNum() throws Exception {
         assertEquals(new Quaternion(1, 1, 1, 1),
-                Quaternion.divideNum(new Quaternion(7, 7, 7, 7), 7));
+                new Quaternion(7, 7, 7, 7).divideNum(7));
         assertEquals(new Quaternion(50, -37, 98, 49),
-                Quaternion.divideNum(new Quaternion(200, -148, 392, 196), 4));
+                new Quaternion(200, -148, 392, 196).divideNum(4));
         try {
-            Quaternion.divideNum(new Quaternion(30, 19, 2, 7), 0);
+            new Quaternion(30, 19, 2, 7).divideNum(0);
             assertTrue(false);
         } catch (ArithmeticException e) {
             assertTrue(true);
@@ -107,13 +107,13 @@ public class QuaternionTest {
 
     @Test
     public void divide() throws Exception {
-        assertEquals(new Quaternion(0.625, 0.125, 0, 0.25), Quaternion.divide(new Quaternion(1, 2, 3, 4),
+        assertEquals(new Quaternion(0.625, 0.125, 0, 0.25), new Quaternion(1, 2, 3, 4).divide(
                 new Quaternion(4, 4, 4, 4)));
         assertEquals(new Quaternion(0.19321971621152229, -0.1102014468514016, 0.22508819448766892, 0.04558907091097829),
-                Quaternion.divide(new Quaternion(12.3, 25.6, 9.4, 11.1),
+                new Quaternion(12.3, 25.6, 9.4, 11.1).divide(
                         new Quaternion(21.3, 41.4, -32.7, 82)));
         try {
-            Quaternion.divide(new Quaternion(23.65, 104, 36.3, 9.054), new Quaternion());
+            new Quaternion(23.65, 104, 36.3, 9.054).divide(new Quaternion());
             assertTrue(false);
         } catch (ArithmeticException e) {
             assertTrue(true);
@@ -133,11 +133,11 @@ public class QuaternionTest {
     @Test
     public void getVectorPart() throws Exception {
         quaternion = new Quaternion(1, 2, 3, 4);
-        assertEquals(new Quaternion(2, 3, 4), quaternion.vectorPart());
+        assertEquals(new Vector(2, 3, 4), quaternion.vectorPart());
         quaternion = new Quaternion(1.5, -2.378, 3.56, 4.894);
-        assertEquals(new Quaternion(-2.378, 3.56, 4.894), quaternion.vectorPart());
+        assertEquals(new Vector(-2.378, 3.56, 4.894), quaternion.vectorPart());
         quaternion = new Quaternion(23.563, -286.3571, 356.0586, -4.58493);
-        assertEquals(new Quaternion(-286.3571, 356.0586, -4.58493), quaternion.vectorPart());
+        assertEquals(new Vector(-286.3571, 356.0586, -4.58493), quaternion.vectorPart());
     }
 
     @Test
@@ -155,4 +155,23 @@ public class QuaternionTest {
                 Quaternion.getQuaternion(vector, angle));
     }
 
+    @Test
+    public void getAngle() throws Exception{
+        quaternion = new Quaternion(1, 2, 3, 4);
+        assertEquals(new Quaternion(1), quaternion.scalarPart());
+        quaternion = new Quaternion(2.574, -3.34, 21, 5.67);
+        assertEquals(new Quaternion(2.574), quaternion.scalarPart());
+        quaternion = new Quaternion(156.45671, -563.5, 200.0004, -43.8543);
+        assertEquals(new Quaternion(156.45671), quaternion.scalarPart());
+    }
+
+    @Test
+    public void getAxis() throws Exception{
+        quaternion = new Quaternion(1, 2, 3, 4);
+        assertEquals(new Quaternion(2, 3, 4), quaternion.getAxis());
+        quaternion = new Quaternion(2.574, -3.34, 21, 5.67);
+        assertEquals(new Quaternion(-3.34, 21, 5.67), quaternion.getAxis());
+        quaternion = new Quaternion(156.45671, -563.5, 200.0004, -43.8543);
+        assertEquals(new Quaternion(-563.5, 200.0004, -43.8543), quaternion.getAxis());
+    }
 }

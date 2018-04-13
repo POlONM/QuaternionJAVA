@@ -24,7 +24,7 @@ public class Vector {
     /**
      * @return length of a vector
      */
-    public double length() {
+    private double length() {
         return Math.sqrt(x * x + y * y + z * z);
     }
 

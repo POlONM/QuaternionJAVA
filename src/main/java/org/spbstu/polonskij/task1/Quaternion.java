@@ -15,7 +15,7 @@ public class Quaternion {
         b = c = d = 0;
     }
 
-    public Quaternion( double b, double c, double d) {
+    public Quaternion(double b, double c, double d) {
         a = 0;
         this.b = b;
         this.c = c;
@@ -62,7 +62,7 @@ public class Quaternion {
      * @return
      */
     private Quaternion inverse() {
-        return divideNum(conjugation(), Math.pow(abs(), 2d));
+        return conjugation().divideNum(Math.pow(abs(), 2d));
     }
 
     /**
@@ -101,23 +101,21 @@ public class Quaternion {
     }
 
     /**
-     * @param first quaternion to divide
      * @param num double
      * @return quaternion divided by a number
      */
-    public static Quaternion divideNum(Quaternion first, double num) {
+    public Quaternion divideNum(double num) {
         if (num == 0) throw new ArithmeticException("Division by zero");
-        return new Quaternion(first.a / num, first.b / num, first.c / num, first.d / num);
+        return new Quaternion(a / num, b / num, c / num, d / num);
     }
 
     /**
-     * @param first quaternion to divide
-     * @param second quaternion to divide
+     * @param other quaternion to divide
      * @return the quaternion obtained by dividing two quaternions
      */
-    public static Quaternion divide(Quaternion first, Quaternion second) {
-        if (second.isZero()) throw new ArithmeticException("Division by zero");
-        return first.mult(second.inverse());
+    public Quaternion divide(Quaternion other) {
+        if (other.isZero()) throw new ArithmeticException("Division by zero");
+        return mult(other.inverse());
     }
 
     /**
@@ -130,13 +128,13 @@ public class Quaternion {
     /**
      * @return vector part of quaternion
      */
-    public Quaternion vectorPart() {
-        return new Quaternion(b, c, d);
+    public Vector vectorPart() {
+        return new Vector(b, c, d);
     }
 
     /**
      * @param vector vector
-     * @param angle double
+     * @param angle  double
      * @return the quaternion obtained from the given axes and the rotation angle
      */
     public static Quaternion getQuaternion(Vector vector, double angle) {
@@ -146,6 +144,20 @@ public class Quaternion {
         double c = unitVector.getY() * Math.sin(angle / 2);
         double d = unitVector.getZ() * Math.sin(angle / 2);
         return new Quaternion(a, b, c, d);
+    }
+
+    /**
+     * @return angle of quaternion
+     */
+    public Quaternion getAngle(){
+        return new Quaternion().scalarPart();
+    }
+
+    /**
+     * @return axis of quaternion
+     */
+    public Quaternion getAxis(){
+        return new Quaternion(0, b, c, d);
     }
 
 

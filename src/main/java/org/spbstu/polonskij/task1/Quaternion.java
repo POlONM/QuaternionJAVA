@@ -121,8 +121,8 @@ public class Quaternion {
     /**
      * @return scalar part of quaternion
      */
-    public Quaternion scalarPart() {
-        return new Quaternion(a);
+    public double scalarPart() {
+        return a;
     }
 
     /**
@@ -149,15 +149,15 @@ public class Quaternion {
     /**
      * @return angle of quaternion
      */
-    public Quaternion getAngle(){
-        return new Quaternion().scalarPart();
+    public static double angle(Quaternion a){
+        return a.scalarPart();
     }
 
     /**
      * @return axis of quaternion
      */
-    public Quaternion getAxis(){
-        return new Quaternion(0, b, c, d);
+    public static Vector axis(Quaternion a){
+        return a.vectorPart();
     }
 
 

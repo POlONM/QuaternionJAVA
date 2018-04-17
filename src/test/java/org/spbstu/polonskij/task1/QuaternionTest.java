@@ -123,11 +123,11 @@ public class QuaternionTest {
     @Test
     public void getScalarPart() throws Exception {
         quaternion = new Quaternion(1, 2, 3, 4);
-        assertEquals(new Quaternion(1), quaternion.scalarPart());
+        assertEquals(1, quaternion.scalarPart(), -10);
         quaternion = new Quaternion(1.5, -2.378, 3.56, 4.894);
-        assertEquals(new Quaternion(1.5), quaternion.scalarPart());
+        assertEquals(1.5, quaternion.scalarPart(), -10);
         quaternion = new Quaternion(23.563, -286.3571, 356.0586, -4.58493);
-        assertEquals(new Quaternion(23.563), quaternion.scalarPart());
+        assertEquals(23.563, quaternion.scalarPart(), -10);
     }
 
     @Test
@@ -156,22 +156,22 @@ public class QuaternionTest {
     }
 
     @Test
-    public void getAngle() throws Exception{
-        quaternion = new Quaternion(1, 2, 3, 4);
-        assertEquals(new Quaternion(1), quaternion.scalarPart());
-        quaternion = new Quaternion(2.574, -3.34, 21, 5.67);
-        assertEquals(new Quaternion(2.574), quaternion.scalarPart());
-        quaternion = new Quaternion(156.45671, -563.5, 200.0004, -43.8543);
-        assertEquals(new Quaternion(156.45671), quaternion.scalarPart());
+    public void getAngle() throws Exception {
+        assertEquals(1,
+                Quaternion.angle(new Quaternion(1, 2, 3, 4)), -10);
+        assertEquals(2.574,
+                Quaternion.angle(new Quaternion(2.574, -3.34, 21, 5.67)), -10);
+        assertEquals(156.45671,
+                Quaternion.angle(new Quaternion(156.45671, -563.5, 200.0004, -43.8543)), -10);
     }
 
     @Test
-    public void getAxis() throws Exception{
-        quaternion = new Quaternion(1, 2, 3, 4);
-        assertEquals(new Quaternion(2, 3, 4), quaternion.getAxis());
-        quaternion = new Quaternion(2.574, -3.34, 21, 5.67);
-        assertEquals(new Quaternion(-3.34, 21, 5.67), quaternion.getAxis());
-        quaternion = new Quaternion(156.45671, -563.5, 200.0004, -43.8543);
-        assertEquals(new Quaternion(-563.5, 200.0004, -43.8543), quaternion.getAxis());
+    public void getAxis() throws Exception {
+        assertEquals(new Vector(2, 3, 4),
+                Quaternion.axis(new Quaternion(1, 2, 3, 4)));
+        assertEquals(new Vector(-3.34, 21, 5.67),
+                Quaternion.axis(new Quaternion(2.574, -3.34, 21, 5.67)));
+        assertEquals(new Vector(-563.5, 200.0004, -43.8543),
+                Quaternion.axis(new Quaternion(156.45671, -563.5, 200.0004, -43.8543)));
     }
 }

@@ -39,11 +39,11 @@ public class QuaternionTest {
     @Test
     public void getNorm() throws Exception {
         quaternion = new Quaternion(1, 2, 3, 4);
-        assertEquals(new Quaternion(1, 4, 9, 16), quaternion.norm());
+        assertEquals(30, quaternion.norm(), -10);
         quaternion = new Quaternion(2.4, -6.7, 4, 9.2);
-        assertEquals(new Quaternion(5.76, 44.89, 16, 84.63999999999999), quaternion.norm());
+        assertEquals(151.29, quaternion.norm(), -10);
         quaternion = new Quaternion(26.45, -63.196, -19.3, -56.56);
-        assertEquals(new Quaternion(699.6025, 3993.734416, 372.49, 3199.0336), quaternion.norm());
+        assertEquals(8264.860516, quaternion.norm(), -10);
     }
 
     @Test

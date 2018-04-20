@@ -10,19 +10,6 @@ public class Quaternion {
         a = b = c = d = 0;
     }
 
-    public Quaternion(double a) {
-        this.a = a;
-        b = c = d = 0;
-    }
-
-    public Quaternion(double b, double c, double d) {
-        a = 0;
-        this.b = b;
-        this.c = c;
-        this.d = d;
-    }
-
-
     public Quaternion(double a, double b, double c, double d) {
         this.a = a;
         this.b = b;
@@ -47,8 +34,8 @@ public class Quaternion {
     /**
      * @return normalized quaternion
      */
-    public Quaternion norm() {
-        return new Quaternion(a * a, b * b, c * c, d * d);
+    public double norm() {
+        return a * a + b * b + c * c + d * d;
     }
 
     /**

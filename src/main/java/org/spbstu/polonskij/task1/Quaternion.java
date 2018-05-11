@@ -34,8 +34,9 @@ public class Quaternion {
     /**
      * @return normalized quaternion
      */
-    public double norm() {
-        return a * a + b * b + c * c + d * d;
+    public Quaternion normalize() {
+        double n = 1/(Math.sqrt(a * a + b * b + c * c + d * d));
+        return new Quaternion(a * n, b * n, c * n, d * n);
     }
 
     /**
@@ -136,8 +137,21 @@ public class Quaternion {
     /**
      * @return angle of quaternion
      */
-    public static double angle(Quaternion a){
-        return a.scalarPart();
+    public static Vector angle(Quaternion a){
+        double t1 = 2 * (a.a * a.b + a.c * a.d);
+        double t2 = 1 - 2 * (a.b * a.b + a.c * a.c);
+        double X = Math.toDegrees(Math.atan2(t1, t2));
+
+        t1 = 2 * (a.a * a.c - a.b * a.d);
+        if(t1 > 1) t2 = 1;
+        else if (t1 < -1) t2 = -1;
+        else t2 = t1;
+        double Y = Math.toDegrees(Math.asin(t2));
+
+        t1 = 2 * (a.a * a.d + a.b * a.c);
+        t2 = 1 - 2 * (a.c * a.c + a.d * a.d);
+        double Z = Math.toDegrees(Math.atan2(t1, t2));
+        return new Vector(X, Y, Z);
     }
 
     /**

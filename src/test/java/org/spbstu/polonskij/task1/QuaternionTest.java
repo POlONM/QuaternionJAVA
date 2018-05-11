@@ -37,13 +37,16 @@ public class QuaternionTest {
     }
 
     @Test
-    public void getNorm() throws Exception {
+    public void getNormalize() throws Exception {
         quaternion = new Quaternion(1, 2, 3, 4);
-        assertEquals(30, quaternion.norm(), -10);
+        assertEquals(new Quaternion(0.18257418583505536, 0.3651483716701107,
+                0.5477225575051661, 0.7302967433402214), quaternion.normalize());
         quaternion = new Quaternion(2.4, -6.7, 4, 9.2);
-        assertEquals(151.29, quaternion.norm(), -10);
+        assertEquals(new Quaternion(0.19512195121951223, -0.5447154471544716,
+                0.3252032520325204, 0.7479674796747968), quaternion.normalize());
         quaternion = new Quaternion(26.45, -63.196, -19.3, -56.56);
-        assertEquals(8264.860516, quaternion.norm(), -10);
+        assertEquals(new Quaternion(0.29094299964127757, -0.6951392743035983,
+                -0.21229489198777532, -0.6221450306128794), quaternion.normalize());
     }
 
     @Test
@@ -157,12 +160,12 @@ public class QuaternionTest {
 
     @Test
     public void getAngle() throws Exception {
-        assertEquals(1,
-                Quaternion.angle(new Quaternion(1, 2, 3, 4)), -10);
-        assertEquals(2.574,
-                Quaternion.angle(new Quaternion(2.574, -3.34, 21, 5.67)), -10);
-        assertEquals(156.45671,
-                Quaternion.angle(new Quaternion(156.45671, -563.5, 200.0004, -43.8543)), -10);
+        assertEquals(new Vector(131.76029970389789, -90, 157.7965214679426),
+                Quaternion.angle(new Quaternion(1, 2, 3, 4)));
+        assertEquals(new Vector(166.25557557839016, 90, -173.29737717552186),
+                Quaternion.angle(new Quaternion(2.574, -3.34, 21, 5.67)));
+        assertEquals(new Vector(-164.83060350780724, 90, -109.32262466557886),
+                Quaternion.angle(new Quaternion(156.45671, -563.5, 200.0004, -43.8543)));
     }
 
     @Test
